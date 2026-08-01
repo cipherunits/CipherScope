@@ -1,0 +1,33 @@
+{
+  "name": "CipherScope",
+  "version": "0.0.1",
+  "description": "Building open-source tools for developers by developers",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup"
+  },
+  "files": [
+    "dist"
+  ],
+  "bin": {
+    "cipher-scope": "./dist/cli.js"
+  },
+  "keywords": [
+    "cipher-scope",
+    "cipherscope",
+    "cipher",
+    "scope",
+    "cipherscope-cli",
+    "cipherscope-init"
+  ],
+  "author": "CipherUnits",
+  "license": "MIT",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/node": "^26.1.2",
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.3"
+  }
+}

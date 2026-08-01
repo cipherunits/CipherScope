@@ -1,0 +1,15 @@
+node_modules/
+*.tsbuildinfo
+.env
+.env.local
+.env.*.local
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+Backups
+src/
+tsconfig.json
+tsup.config.ts
