@@ -1,28 +1,46 @@
 # CipherScope
 
-**Project context, right when you need it.**
+**Project context in your terminal — before you run anything.**
 
-CipherScope is a CLI that surfaces the important bits of your project — runtime, environment, Git, Docker, and more — before and while you run it. Configure everything through a single `cipherscope.toml`.
+CipherScope is a small CLI that prints a branded ASCII banner plus auto-detected project facts. Everything is controlled from one file: `cipherscope.toml`.
 
 [![npm version](https://img.shields.io/npm/v/cipher-scope.svg)](https://www.npmjs.com/package/cipher-scope)
+[![npm downloads](https://img.shields.io/npm/dm/cipher-scope.svg)](https://www.npmjs.com/package/cipher-scope)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg)](https://nodejs.org)
 
-> **Status:** `v0.0.2` — init, package.json script injection, and 5-weight ASCII banners. Runtime UI, Git, Env, and Docker modules are on the roadmap.
+```text
+ ██████╗██╗██████╗ ██╗  ██╗███████╗██████╗ ███████╗ ██████╗ ██████╗ ██████╗ ███████╗
+██╔════╝██║██╔══██╗██║  ██║██╔════╝██╔══██╗██╔════╝██╔════╝██╔═══██╗██╔══██╗██╔════╝
+██║     ██║██████╔╝███████║█████╗  ██████╔╝███████╗██║     ██║   ██║██████╔╝█████╗
+██║     ██║██╔═══╝ ██╔══██║██╔══╝  ██╔══██╗╚════██║██║     ██║   ██║██╔═══╝ ██╔══╝
+╚██████╗██║██║     ██║  ██║███████╗██║  ██║███████║╚██████╗╚██████╔╝██║     ███████╗
+ ╚═════╝╚═╝╚═╝     ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝     ╚══════╝
+
+Project
+  Env              development  (.env.development)
+  Package Manager  pnpm
+  Version          1.2.3
+
+Developer
+  Name     CipherUnits
+  Website  https://cipherunits.com
+  GitHub   https://github.com/cipherunits
+```
 
 ---
 
-## Why CipherScope?
+## Features
 
-When you run a project, context is usually scattered: which branch am I on? What’s in `.env`? Which Docker service is this? CipherScope brings that into one readable terminal view, driven by config — not hardcoded scripts.
-
-| Module | Purpose |
+| Feature | What it does |
 | --- | --- |
-| **Runtime** | Node version, package manager, OS, memory |
-| **Environment** | Env vars with secret redaction |
-| **Git** | Branch, commit, working-tree status |
-| **Docker** | Service / image / port context |
-| **Brand & UI** | Themes, modes, custom branding |
+| **ASCII banner** | Renders `[project].name` in 5 weights (`thin` → `heavy`) |
+| **Project info** | Auto-detects env profile, package manager, and app version |
+| **Developer block** | Name, website, and GitHub — clickable in supported terminals |
+| **One config file** | All toggles live in `cipherscope.toml` |
+| **npm script hook** | `init` injects `cipherscope` as the **first** script in `package.json` |
+
+Coming later: Git status, Docker context, env var panel, themes, and `cipher-scope run`.
 
 ---
 
@@ -30,7 +48,11 @@ When you run a project, context is usually scattered: which branch am I on? What
 
 ```bash
 npm install -g cipher-scope
-# or use without installing:
+```
+
+Or use without a global install:
+
+```bash
 npx cipher-scope
 ```
 
@@ -40,27 +62,41 @@ Requires **Node.js 18+**.
 
 ## Quick start
 
+### 1. Initialize
+
+In your project root:
+
 ```bash
 npx cipher-scope
-# or:
-npx cipher-scope init
 ```
 
 This will:
 
-1. Create `cipherscope.toml` in the current directory
-2. Add a **`cipherscope`** script as the **first** entry in `package.json`
+1. Create `cipherscope.toml`
+2. Add this as the **first** script in `package.json`:
 
 ```json
 {
   "scripts": {
     "cipherscope": "cipher-scope banner",
-    "dev": "npm run cipherscope && next dev"
+    "dev": "next dev"
   }
 }
 ```
 
-Then show the banner anytime:
+### 2. Wire it into your workflow
+
+```json
+{
+  "scripts": {
+    "cipherscope": "cipher-scope banner",
+    "dev": "npm run cipherscope && next dev",
+    "start": "npm run cipherscope && node dist/server.js"
+  }
+}
+```
+
+### 3. Run
 
 ```bash
 npm run cipherscope
@@ -68,7 +104,11 @@ npm run cipherscope
 npx cipher-scope banner
 ```
 
-Default config:
+---
+
+## Configuration
+
+All behavior is driven by `cipherscope.toml`.
 
 ```toml
 [project]
@@ -78,25 +118,83 @@ name = "My Project"
 enabled = true
 # thin | light | regular | bold | heavy
 style = "heavy"
+
+[info]
+enabled = true
+env = true
+package_manager = true
+version = true
+
+[developer]
+enabled = false
+name = ""
+website = ""
+github = ""
 ```
 
-Change `name` and `style`, then re-run the script to preview.
+### `[project]`
 
----
+| Key | Type | Default | Description |
+| --- | --- | --- | --- |
+| `name` | string | `"My Project"` | Text rendered in the ASCII banner |
 
-## Banner styles
+### `[brand]`
 
-Five weights from thin to heavy:
+| Key | Type | Default | Description |
+| --- | --- | --- | --- |
+| `enabled` | bool | `true` | Show / hide the banner |
+| `style` | string | `"heavy"` | Banner weight |
 
-| `style` | Look |
+**Styles** (thin → heavy):
+
+| Value | Look |
 | --- | --- |
-| `thin` | Compact small letters |
-| `light` | Slanted / light stroke |
+| `thin` | Compact, small letters |
+| `light` | Slanted, light stroke |
 | `regular` | Classic standard |
 | `bold` | Large block letters |
 | `heavy` | Dense shadow block (ANSI Shadow) |
 
-The banner renders `[project].name` with the selected weight.
+### `[info]`
+
+Auto-detected facts. Turn the whole block off with `enabled`, or toggle each row.
+
+| Key | Type | Default | Description |
+| --- | --- | --- | --- |
+| `enabled` | bool | `true` | Show the project info block |
+| `env` | bool | `true` | Active `.env` profile (`development`, `staging`, …) |
+| `package_manager` | bool | `true` | `npm` / `pnpm` / `yarn` / `bun` (from lockfiles) |
+| `version` | bool | `true` | Version from the project’s `package.json` |
+
+**Env detection order**
+
+1. `NODE_ENV` when set (`development`, `staging`, `production`, …)
+2. Otherwise the first existing file among:
+
+`.env.local` → `.env.development` / `.env.dev` → `.env.staging` / `.env.stage` → `.env.production` / `.env.prod` → `.env.test` → `.env`
+
+**Package manager detection**
+
+`pnpm-lock.yaml` → `yarn.lock` → `bun.lock` / `bun.lockb` → `package-lock.json` → `npm_config_user_agent`
+
+### `[developer]`
+
+| Key | Type | Default | Description |
+| --- | --- | --- | --- |
+| `enabled` | bool | `false` | Show the developer block |
+| `name` | string | `""` | Person or team name |
+| `website` | string | `""` | Website URL (OSC-8 link when supported) |
+| `github` | string | `""` | GitHub URL (OSC-8 link when supported) |
+
+Example:
+
+```toml
+[developer]
+enabled = true
+name = "CipherUnits"
+website = "https://cipherunits.com"
+github = "https://github.com/cipherunits"
+```
 
 ---
 
@@ -104,42 +202,29 @@ The banner renders `[project].name` with the selected weight.
 
 | Command | Description |
 | --- | --- |
-| `cipher-scope` | Create config + inject npm script |
+| `cipher-scope` | Create `cipherscope.toml` + inject the npm script |
 | `cipher-scope init` | Same as above |
-| `cipher-scope banner` | Print the project banner |
+| `cipher-scope banner` | Print banner, project info, and developer block |
 
 ---
 
-## Configuration reference
+## Programmatic use
 
-### `[project]`
+```ts
+import {
+  loadConfig,
+  renderBanner,
+  detectEnv,
+  detectPackageManager,
+  detectAppVersion,
+} from "cipher-scope";
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `name` | string | Project name shown in the banner |
-
-### `[brand]`
-
-| Key | Type | Description |
-| --- | --- | --- |
-| `enabled` | bool | Show the ASCII banner |
-| `style` | string | Banner weight: `thin` \| `light` \| `regular` \| `bold` \| `heavy` |
-
----
-
-## Roadmap
-
-Planned next:
-
-1. Static UI engine (banner, themes, modes)
-2. TOML-driven behavior & validation
-3. Environment module with secret hiding
-4. Git & Docker integration
-5. Runtime / memory / OS panel
-6. Custom branding
-7. Auto-run before scripts (`cipher-scope run dev`)
-
-Full plan: [`CipherScope_Roadmap.md`](./CipherScope_Roadmap.md)
+const config = loadConfig();
+console.log(renderBanner(config.project.name, config.brand.style));
+console.log(detectEnv());
+console.log(detectPackageManager());
+console.log(detectAppVersion());
+```
 
 ---
 
@@ -148,18 +233,42 @@ Full plan: [`CipherScope_Roadmap.md`](./CipherScope_Roadmap.md)
 ```bash
 git clone https://github.com/cipherunits/CipherScope.git
 cd CipherScope
-pnpm install   # or npm install
-pnpm build     # or npm run build
+pnpm install
+pnpm build
 ```
 
-Local smoke test:
+Local pack & smoke test:
 
 ```bash
 npm pack
-cd test
-npm install ../cipher-scope-0.0.1.tgz
+# in a throwaway folder:
+npm install /path/to/cipher-scope-0.0.3.tgz
 npx cipher-scope
+npm run cipherscope
 ```
+
+Publish:
+
+```bash
+npm publish
+```
+
+---
+
+## Roadmap
+
+- [x] Init + `cipherscope.toml`
+- [x] npm script injection
+- [x] 5-weight ASCII banners
+- [x] Auto project info (env / PM / version)
+- [x] Developer links
+- [ ] Git status panel
+- [ ] Docker context
+- [ ] Env var panel with secret redaction
+- [ ] Themes & richer UI modes
+- [ ] `cipher-scope run <script>`
+
+Full plan: [`CipherScope_Roadmap.md`](./CipherScope_Roadmap.md)
 
 ---
 

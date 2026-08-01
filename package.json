@@ -1,7 +1,7 @@
 {
   "name": "cipher-scope",
-  "version": "0.0.2",
-  "description": "CLI that surfaces project runtime, env, git, and docker context — configured via cipherscope.toml",
+  "version": "0.0.3",
+  "description": "CLI that prints a branded ASCII banner plus auto-detected project info — configured via cipherscope.toml",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -27,17 +27,18 @@
   },
   "keywords": [
     "cli",
+    "banner",
+    "ascii",
+    "figlet",
     "developer-tools",
+    "devtools",
     "cipherscope",
     "cipher-scope",
     "toml",
     "config",
-    "runtime",
-    "git",
-    "docker",
-    "environment",
     "terminal",
-    "devtools"
+    "package-manager",
+    "env"
   ],
   "author": "CipherUnits",
   "license": "MIT",

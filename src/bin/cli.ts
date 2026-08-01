@@ -21,9 +21,11 @@ Usage:
 
   cipher-scope              Create config + add npm script
   cipher-scope init         Same as above
-  cipher-scope banner       Print project banner from cipherscope.toml
+  cipher-scope banner       Print banner, project info, developer
 
-Banner styles in cipherscope.toml [brand] style:
-  thin | light | regular | bold | heavy
+Config sections in cipherscope.toml:
+  [brand]       Banner on/off + style
+  [info]        Env / package manager / version
+  [developer]   Name, website, github
 `);
 }

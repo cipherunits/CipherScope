@@ -4,3 +4,7 @@ export { renderBanner } from "./banner/render";
 export { BANNER_STYLES, BANNER_FONTS } from "./banner/styles";
 export type { BannerStyle } from "./banner/styles";
 export { loadConfig } from "./config/load";
+export type { CipherScopeConfig } from "./config/load";
+export { detectEnv } from "./detect/env";
+export { detectPackageManager } from "./detect/package-manager";
+export { detectAppVersion } from "./detect/version";

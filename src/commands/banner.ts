@@ -1,6 +1,8 @@
 import { existsSync } from "node:fs";
 import { loadConfig } from "../config/load";
 import { renderBanner } from "../banner/render";
+import { renderProjectInfo } from "../display/info";
+import { renderDeveloper } from "../display/developer";
 
 export function bannerCommand() {
   if (!existsSync("cipherscope.toml")) {
@@ -12,10 +14,16 @@ export function bannerCommand() {
   }
 
   const config = loadConfig();
+  let output = "";
 
-  if (!config.brand.enabled) {
-    return;
+  if (config.brand.enabled) {
+    output += renderBanner(config.project.name, config.brand.style);
   }
 
-  process.stdout.write(renderBanner(config.project.name, config.brand.style));
+  output += renderProjectInfo(config);
+  output += renderDeveloper(config);
+
+  if (output) {
+    process.stdout.write(output.endsWith("\n") ? output : `${output}\n`);
+  }
 }
