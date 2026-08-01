@@ -1,51 +1,9 @@
-# ============================================================
 # CipherScope Configuration
-# ============================================================
 
 [project]
-
 name = "My Project"
 
-
-
-[ui]
-
-enabled = true
-mode = "default"
-bold = true
-animation = false
-color = "cyan"
-
-
-
 [brand]
-
 enabled = true
 # Banner weight: thin | light | regular | bold | heavy
 style = "heavy"
-
-
-
-[modules]
-
-runtime = true
-git = true
-env = false
-docker = false
-memory = false
-network = false
-
-
-
-[env]
-
-enabled = false
-
-# Hide sensitive variables
-hide = [
-  "PASSWORD",
-  "SECRET",
-  "TOKEN",
-  "KEY",
-  "PRIVATE_KEY"
-]

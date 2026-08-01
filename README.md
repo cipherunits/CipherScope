@@ -74,29 +74,10 @@ Default config:
 [project]
 name = "My Project"
 
-[ui]
-enabled = true
-mode = "default"
-bold = true
-animation = false
-color = "cyan"
-
 [brand]
 enabled = true
 # thin | light | regular | bold | heavy
 style = "heavy"
-
-[modules]
-runtime = true
-git = true
-env = false
-docker = false
-memory = false
-network = false
-
-[env]
-enabled = false
-hide = ["PASSWORD", "SECRET", "TOKEN", "KEY", "PRIVATE_KEY"]
 ```
 
 Change `name` and `style`, then re-run the script to preview.
@@ -135,17 +116,7 @@ The banner renders `[project].name` with the selected weight.
 
 | Key | Type | Description |
 | --- | --- | --- |
-| `name` | string | Project display name |
-
-### `[ui]`
-
-| Key | Type | Description |
-| --- | --- | --- |
-| `enabled` | bool | Toggle UI output |
-| `mode` | string | Display mode (`default`, later: `minimal`, `compact`, `cyber`) |
-| `bold` | bool | Bold text |
-| `animation` | bool | Terminal animation |
-| `color` | string | Accent color |
+| `name` | string | Project name shown in the banner |
 
 ### `[brand]`
 
@@ -153,26 +124,6 @@ The banner renders `[project].name` with the selected weight.
 | --- | --- | --- |
 | `enabled` | bool | Show the ASCII banner |
 | `style` | string | Banner weight: `thin` \| `light` \| `regular` \| `bold` \| `heavy` |
-
-### `[modules]`
-
-Toggle what CipherScope collects and shows:
-
-| Key | Default | Description |
-| --- | --- | --- |
-| `runtime` | `true` | Runtime / Node / OS info |
-| `git` | `true` | Git status |
-| `env` | `false` | Environment variables |
-| `docker` | `false` | Docker service context |
-| `memory` | `false` | Memory usage |
-| `network` | `false` | Network-related info |
-
-### `[env]`
-
-| Key | Type | Description |
-| --- | --- | --- |
-| `enabled` | bool | Enable env module |
-| `hide` | string[] | Substrings that mark secrets (values are redacted) |
 
 ---
 

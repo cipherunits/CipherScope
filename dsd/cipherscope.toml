@@ -1,0 +1,6 @@
+[project]
+name = "CipherScope"
+
+[brand]
+enabled = true
+style = "thin"
