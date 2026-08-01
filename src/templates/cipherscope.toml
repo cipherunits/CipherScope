@@ -21,7 +21,8 @@ color = "cyan"
 [brand]
 
 enabled = true
-text = "CipherScope"
+# Banner weight: thin | light | regular | bold | heavy
+style = "heavy"
 
 
 

@@ -1,4 +1,13 @@
 import { defineConfig } from "tsup";
+import { cpSync, mkdirSync } from "node:fs";
+import { join } from "node:path";
+
+function copyTemplates() {
+  const from = join(__dirname, "src", "templates");
+  const to = join(__dirname, "dist", "templates");
+  mkdirSync(to, { recursive: true });
+  cpSync(from, to, { recursive: true });
+}
 
 export default defineConfig([
   {
@@ -12,7 +21,7 @@ export default defineConfig([
   },
   {
     format: ["cjs"],
-    entry: { cli: "./src/cli.ts" },
+    entry: { "bin/cli": "./src/bin/cli.ts" },
     shims: true,
     skipNodeModulesBundle: true,
     clean: false,
@@ -20,5 +29,8 @@ export default defineConfig([
       js: "#!/usr/bin/env node",
     },
     tsconfig: "./tsconfig.json",
+    onSuccess: async () => {
+      copyTemplates();
+    },
   },
 ]);

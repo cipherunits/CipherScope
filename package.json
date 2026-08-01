@@ -1,33 +1,60 @@
 {
-  "name": "CipherScope",
-  "version": "0.0.1",
-  "description": "Building open-source tools for developers by developers",
+  "name": "cipher-scope",
+  "version": "0.0.2",
+  "description": "CLI that surfaces project runtime, env, git, and docker context — configured via cipherscope.toml",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "scripts": {
-    "build": "tsup"
+  "bin": {
+    "cipher-scope": "./dist/bin/cli.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "LICENSE",
+    "README.md"
   ],
-  "bin": {
-    "cipher-scope": "./dist/cli.js"
+  "scripts": {
+    "build": "tsup",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cipherunits/CipherScope.git"
+  },
+  "homepage": "https://github.com/cipherunits/CipherScope#readme",
+  "bugs": {
+    "url": "https://github.com/cipherunits/CipherScope/issues"
   },
   "keywords": [
-    "cipher-scope",
+    "cli",
+    "developer-tools",
     "cipherscope",
-    "cipher",
-    "scope",
-    "cipherscope-cli",
-    "cipherscope-init"
+    "cipher-scope",
+    "toml",
+    "config",
+    "runtime",
+    "git",
+    "docker",
+    "environment",
+    "terminal",
+    "devtools"
   ],
   "author": "CipherUnits",
   "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "commonjs",
   "devDependencies": {
+    "@types/figlet": "^1.7.0",
     "@types/node": "^26.1.2",
     "tsup": "^8.5.1",
     "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "figlet": "^1.11.4"
   }
 }
