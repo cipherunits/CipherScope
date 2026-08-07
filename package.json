@@ -1,6 +1,6 @@
 {
   "name": "cipher-scope",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "CLI that prints a branded ASCII banner plus auto-detected project info — configured via cipherscope.toml",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

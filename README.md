@@ -24,7 +24,7 @@ Project
 
 Developer
   Name     CipherUnits
-  Website  https://cipherunits.com
+  Website  https://cipherunits.xyz
   GitHub   https://github.com/cipherunits
 ```
 
@@ -192,7 +192,7 @@ Example:
 [developer]
 enabled = true
 name = "CipherUnits"
-website = "https://cipherunits.com"
+website = "https://cipherunits.xyz"
 github = "https://github.com/cipherunits"
 ```
 
@@ -236,39 +236,6 @@ cd CipherScope
 pnpm install
 pnpm build
 ```
-
-Local pack & smoke test:
-
-```bash
-npm pack
-# in a throwaway folder:
-npm install /path/to/cipher-scope-0.0.3.tgz
-npx cipher-scope
-npm run cipherscope
-```
-
-Publish:
-
-```bash
-npm publish
-```
-
----
-
-## Roadmap
-
-- [x] Init + `cipherscope.toml`
-- [x] npm script injection
-- [x] 5-weight ASCII banners
-- [x] Auto project info (env / PM / version)
-- [x] Developer links
-- [ ] Git status panel
-- [ ] Docker context
-- [ ] Env var panel with secret redaction
-- [ ] Themes & richer UI modes
-- [ ] `cipher-scope run <script>`
-
-Full plan: [`CipherScope_Roadmap.md`](./CipherScope_Roadmap.md)
 
 ---
 
